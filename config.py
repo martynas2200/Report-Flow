@@ -23,7 +23,7 @@ USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 
 # Email settings
-FROM_EMAIL = os.getenv("SMTP_USER", "pos@example.com")
+FROM_EMAIL = os.getenv("FROM_EMAIL")
 SMTP_PASS = os.getenv("SMTP_PASS")
 SMTP_USER = os.getenv("SMTP_USER")
 REPORTING_EMAIL = os.getenv("REPORTING_EMAIL")

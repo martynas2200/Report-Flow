@@ -69,7 +69,7 @@ def main():
     header = df.columns
     receipt_text = ""
     for header_name, value in zip(header, first_row):
-        if pd.notnull(value) and value != "0,00":
+        if pd.notnull(value) and value != 0:
             receipt_text += f"{header_name:<22} {value:>20}\n"
 
     # HTML-ify
@@ -81,8 +81,7 @@ def main():
 
     # Send email
     subject = f"Z ataskaita {today_date}"
-    to_email = DAILY_EMAIL
-    send_email_html(subject=subject, to_email=to_email, html_content=receipt_text_html)
+    send_email_html(subject=subject, to_email=DAILY_EMAIL, html_content=receipt_text_html)
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ def generate_html_report(
     # Header
     html_str.append(f"""
     <div class="columns">
-      <div class="column"><h1 class="is-3 title">Nukainojimai {week_number} savaitė</h1></div>
+      <div class="column"><h1 class="is-3 title">Nukainavimai {week_number} savaitė</h1></div>
       <div class="column"><div class="has-text-right">{SHOP_NAME} <br> Periodas: {start_date} - {end_date}</div></div>
     </div>
     """)

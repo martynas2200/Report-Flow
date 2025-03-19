@@ -29,6 +29,7 @@ def reduced_sales_report(year, week_number):
     GRID = 'Transactions'
     pos_client = POSClient(grid=GRID)
     start_date, end_date = get_week_interval(year, week_number)
+    last_report_path = os.path.join(DATA_FOLDER, "last_report.html")
     print(f"Week {week_number} of {year}: {start_date} to {end_date}")
 
     # File name
@@ -38,6 +39,9 @@ def reduced_sales_report(year, week_number):
     if os.path.exists(file_path):
         print(f"File {file_name} already exists, skipping generation.")
         return
+    else:
+        if os.path.exists(last_report_path):
+            os.remove(last_report_path)
 
     # 1. Login
     pos_client.login()
@@ -135,7 +139,6 @@ def reduced_sales_report(year, week_number):
     print(f"HTML report exported")
 
     # Duplicate last report
-    last_report_path = os.path.join(DATA_FOLDER, "last_report.html")
     os.system(f"cp {html_output_path} {last_report_path}")
 
     # send email

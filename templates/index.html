@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Week Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select Week Report</h1>
+        <form action="/report" method="get">
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" min="2024" value="{{ year }}">
+            <label for="week_number">Week Number:</label>
+            <select id="week_number" name="week">
+                {% for week in range(1, 54) %}
+                    <option value="{{ week }}">Week {{ week }}</option>
+                {% endfor %}
+            </select>
+            <label for="report_type">Report Type:</label>
+            <select id="report_type" name="download">
+                <option value="0">Web Page</option>
+                <option value="1">Excel File</option>
+            </select>
+            <br>
+            <button type="submit" class="button-primary">See Report</button>
+        </form>
+    </div>
+</body>
+</html>

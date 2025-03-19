@@ -3,6 +3,8 @@ from config import B1_API_KEY, DATA_FOLDER
 import os
 import datetime
 
+SUPPLIER_CACHE = {}
+
 def fetch_b1_data(url: str, body: dict) -> dict:
     """Fetches data from the B1 API."""
     url = f"https://www.b1.lt/api/{url}"
@@ -31,13 +33,22 @@ def get_supplier_by_barcode(barcode: str) -> str:
                 ]
             }
         }
+        if barcode in SUPPLIER_CACHE:
+            return SUPPLIER_CACHE[barcode]
+
         try:
             response, status = fetch_b1_data("reference-book/items/list", body)
             if status != 200 or not response.get('data'):
                 return None
             # temp: add a line to the csv file
             with open(os.path.join(DATA_FOLDER, "mapping.csv"), "a") as f:
+                f.seek(0, os.SEEK_END) # check if there ia a newline at the end of the file
+                if f.tell() > 0:
+                    f.seek(-1, os.SEEK_END)
+                    if f.read(1) != "\n":
+                        f.write("\n")
                 f.write(f"{barcode},{response['data'][0]['manufacturerName']}\n")
+            SUPPLIER_CACHE[barcode] = response['data'][0]['manufacturerName']
             return response['data'][0]['manufacturerName']
         except:
             return None
